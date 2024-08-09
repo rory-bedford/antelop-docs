@@ -22,6 +22,11 @@ Antelope consists of a centralised lab storage server (built on MySQL and S3), a
    * Interaction with the database through SQL queries
    * An object-oriented paradigm for extending the analysis suite
 
+.. figure:: images/antelope.png
+    :alt: Antelope screenshot
+
+    Antelope user interface
+
 Why should I use Antelope?
 --------------------------
 
@@ -31,7 +36,7 @@ A number of tools exist to address these challenges, such as relational database
 
 However, the requirements of different systems neuroscience labs are often fairly uniform. For example, if a lab performs electrophysiology experiments, they typically want to store the raw experimental output from their acquisition system, and extract both LFPs and spike trains from this raw data, before applying a number of analysis routines on this extracted data, most likely involving behavioural data from the trial. We believe that a platform that allows these steps to be done, with the flexibility to incorporate a range of different experimental setups and computational infrastructures, with highly customizable processing parameters, and an extendible set of analysis tools, could be an immense benefit to a number of neuroscience labs.
 
-A few different projects already exist that address some of these challenges. Most notably, `DataJoint <https://datajoint.com/>`_ provides a means of constructing data pipelines based on a SQL database, with user-defined computational steps populating downstream tables in a reproduceable manner. DataJoint Elements provides pre-defined computational pipelines for a range of neuroscience applications. However, DataJoint Elements still requires users to interact with their data in a programmatic way, and has its own learning curve that can be a barrier to its adoption by many neuroscientists. Furthermore, DataJoint requires a local installation and runs all computations locally and sequentially. Additionally, we think the DataJoint Elements schemas are overly complex and convoluted. These are the main issues that we seek to address with Antelope.
+A few different projects already exist that address some of these challenges. Most notably, `DataJoint <https://datajoint.com/>`_ provides a means of constructing data pipelines based on a SQL database, with user-defined computational steps populating downstream tables in a reproduceable manner. DataJoint Elements provides pre-defined computational pipelines for a range of neuroscience applications. However, DataJoint Elements still requires users to interact with their data in a programmatic way, and has its own learning curve that can be a barrier to its adoption by many neuroscientists. Our pipelines are designed to be as simple and interpretable as possible, and can be interacted with fully graphically to facilitate the adoption of the platform by a wide range of users.
 
 For these reasons, we have built Antelope with the following features:
 
@@ -44,13 +49,13 @@ For these reasons, we have built Antelope with the following features:
 
    + The choice between self-hosting the database or using web services such as AWS.
    + Support for a number of computational environments, including the option to run heavy computations on a HPC, a dedicated computing server, or locally.
-   + The choice of a persistent web interface on a dedicated server, or running the GUI as a desktop application as needed.
+   + The choice of a persistent web interface on a dedicated server, or running the GUI locally like a Jupyter notebook.
 
 * The setup is made as simple as possible, namely:
 
-   + It only needs to be done once for the entire lab (unless users want to use the python package locally).
-   + Software installation is made simple through the use of containerisation.
-   + We provide simple configuration files to connect the different components easily during install ation.
+   + The MySQL database and S3 store can be installed and configured quickly via docker containers.
+   + The cluster pipelines run on Nextflow with all dependencies containerised, and we provide a simple install script to configure and set this up.
+   + The user interface and python package can be installed locally via pip, and are configured via a simple command line tool or a toml file.
 
 * The benefits of a SQL database all apply, including:
 
@@ -73,12 +78,22 @@ At present, Antelope supports the following experiment types:
    + Allows for localisation of units through the probe insertion coordinates
    + Provides a set of standard analysis functions and visualisations for the unit spike trains and LFPs
 
+* Behavioural data
+
+   + Supports a range of behavioural data types, such as videos, hardware ttls, or tracking data
+   + The geometry of your behavioural rig and all hardware acquisitions are specified via a custom json file
+   + Data is then automatically parsed and stored in the database in stuctured arrays
+   + We also incorporate the training and inference of DeepLabCut models for tracking
+
+* Analysis suite
+
+   + Provides a broad set of standard analysis functions for electrophysiology and behavioural data, such as spike-triggered averages
+   + Also provides a set of visualisations for these analyses, such as raster plots and tuning curves
+   + Writing custom analysis functions is straightforward, and we provide a particular object-oriented paradigm for your own functions that performs database queries for you under the hood
+
 In the future, we plan to incorporate the following additional features:
 
-* Behavioural data including DeepLabCut
-* A comprehensive and extendable analysis suite
 * Calcium imaging
-* Brain registration + cell detection
 
 Credits
 -------
@@ -95,11 +110,12 @@ Contents
 --------
 
 .. toctree::
+   :maxdepth: 2
 
-   setup
-   app
-   python
-   developer
+   ui/index
+   python/index
+   installation/index
+   developer/index
 
 
 .. note::
