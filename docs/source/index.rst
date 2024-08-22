@@ -21,6 +21,7 @@ Antelope consists of a centralised lab storage server (built on MySQL and S3), a
    * A comprehensive set of standard analysis functions
    * Interaction with the database through SQL queries
    * An object-oriented paradigm for extending the analysis suite
+   * A strict data-hashing based reproducibility system for analysis function runs
 
 .. figure:: images/antelope.png
     :alt: Antelope screenshot
