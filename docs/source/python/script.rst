@@ -1,3 +1,5 @@
+.. _script:
+
 Using antelope in a script
 ==========================
 
@@ -36,9 +38,45 @@ We designed the masking functions to allow for the splitting of sessions into in
 
 This will return a list of (data, timestamps) tuples, each corresponding to a single trial, as defined by the mask.
 
+Upload rig json
+^^^^^^^^^^^^^^^
+As described in :ref:`behaviour`, antelope uses a custom json-based file format to describe your behaviour rig, all the different elements of your behaviour that will get recorded, and how to parse a NWB file to upload this data into our database structure. It is recommended to use our helper function to upload this file for two reasons. First of all, our function checks that the json file is valid according to our json schema. Downstream function assume this to be the case, so invalid rigs will make downstream processing impossible. Second, our function also automatically populates the `Feature` table, which allows you to further annotate features in the behaviour rig with data such as video attachments.
+
+This function is called `upload_rig_json` takes the following arguments::
+
+    experimenter (str): experimenter username
+    rig_name (str): name of the rig
+    rig_json (path): path to the rig json file
+    masklist (list of dict): list of mask dictionaries, with keys 'name', 'description', 'function'
+
+Note that the rig name, like all other names in the database, should be unique. This is quite important. In our lab, for example, we have four rigs of identical design but with slightly different measurements calibrating camera feeds, so its very important to be able to discriminate their geometries in the database for postprocessing and analysis.
+
+Masking functions are used to split sessions into trials, and are described in :ref:`behaviour-masks`. These are written in antelope's analysis format, so must be present in your analysis folder. The masklist argument is a list of dictionaries, each of which describes a mask, with the following keys:
+
+* name: a unique name for the mask
+* description: a description of the mask
+* function: the name of the script and function, such as `script.mask1`, where scripts are found in your defined analysis folder. It is very important that these functions are named correctly here otherwise you will have errors inserting your data.
+
+Recompute masks
+^^^^^^^^^^^^^^^
+As described in :ref:`behaviour-masks`, we store masks in the database, which are used to split sessions into trials. These are computed immediately upon data insertion, to ensure all your behaviour recording sessions have the appropriate data defining trials in them. However, you do need to write your masking functions, which are often fairly customised, and test that they work correctly. The recommended workflow is to insert a small subset of data, such as a single session, and then write your masking functions. Once you are happy that they work, you need to of course recompute the masks in the database for these test sessions, which is what this helper function does.
+
+Thhis function is called `recompute_masks` and takes the following arguments::
+
+    key (dict): session primary key
+
+This will then recompute the masks for this session and will repopulate the database. Note that this doesn't strictly have to be a session key: you can run on more than one session with, say, an experiment key, but for a lot of data this will take a long time, so it's not recommended to do this unless you know what you're doing, and potentially use, say, an HPC to do this.
+
 Insert nwb
 ^^^^^^^^^^
 One data insert that is potentially non-trivial is inserting nwb files. We batch insert all the different data for a single session within the behaviour schema, as they are all interelated and should come from the same nwb file. This is not a simple process. In particular, we took great care in desiging our json schema, that describes your behaviour rig, its geometry and features, and maps the data from our acquisition's nwb output into the correct tables. We therefore expose a function that reads this nwb file, the json file, and the database key, and performs all the necessary inserts.
 
-This function is called `insert_nwb` and takes the following arguments:
+This function is called `insert_nwb` and takes the following arguments::
+
+    session (dict): session primary key
+    animals (list of dict): animal primary keys
+    nwbpath (Path): path to the nwb file
+
+Note that the behaviour rig json must already be inserted in the database using the upload_rig_json function (or the gui). Additionally, the NWB file must contain all the data described in the json file, otherwise an error will be raised. It can have additional data not described in the json. Finally, the animal keys must of course match the session key, and the animals must match the json file - ie, if two animals are described as being in the recording inside the behaviour rig file, then two animal keys must be given.
+
 

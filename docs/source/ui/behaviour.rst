@@ -3,6 +3,8 @@ Behaviour
 
 .. note:: This is a work in progress
 
+.. _behaviour:
+
 Define behaviour rig
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -20,6 +22,8 @@ Train deeplabcut
 
 Extract kinematics
 ^^^^^^^^^^^^^^^^^^
+
+.. _behaviour-masks:
 
 Recompute masks
 ^^^^^^^^^^^^^^^

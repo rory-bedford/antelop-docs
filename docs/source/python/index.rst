@@ -12,7 +12,7 @@ This section of the documentation covers antelope's python interface, including 
    config
    interactive
    script
+   run
    stlib
    analysis
-
 

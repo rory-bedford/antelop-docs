@@ -1,5 +1,8 @@
 Analysis
---------
+========
+
+Run analysis
+------------
 
 .. figure:: ../images/analysis.png
    :alt: Analysis page
@@ -37,7 +40,9 @@ You also need to select a location to save your results, as they will not be dis
 
 We also save a custom json file called `query.json` which is designed to facilitate reproducibility for publications. More detail on this is detailed below.
 
-Reproducibility
-^^^^^^^^^^^^^^^
+Reproduce analysis
+------------------
 
-Our custom json file aids reproudcibility by specifying exactly the analysis function that was run, the exact database restriction it was run with, as well as a hash of the function and of the database fetch results, to ensure data consistency. This file can be used to rerun the exact same analysis on the exact same data, and is designed to be included in supplementary materials for publications.
+Our custom json file aids reproducibility by specifying exactly the analysis function that was run, the exact database restriction it was run with, as well as a hash of the function and of the database fetch results, to ensure data consistency. This file can be used to rerun the exact same analysis on the exact same data, and is designed to be included in supplementary materials for publications. For details of this, see :ref:`reproducibility`.
+
+The gui page to do this is very simple: you jsut need to select your reproducibilty json file. You can then check the hashes, which checks whether all the criteria needed for reproducibility are met, and can then run your funciton just like before.
