@@ -30,10 +30,12 @@ Analysis functions in antelope are written as classes decorated by the `antelope
 
 * `name`: (str) The name of the function, as it will be accessed in the gui and python interface.
 * `query`: (str or list[str]) The name of the table that the function will query to give you the primary key. Note this does not mean the function will only query this table, but it will run in parallel on all keys in this table, or a subset of these keys. The query attribute could also be a list, which we discuss later.
+* `data`: (str or list[str]) The name of the tables the function will fetch data from. This has to be specified to enforce our data immutability checks.
 * `args`: (dict[str, type]) (Optional) A dictionay of additional argument names, along with their python data types.
 * `returns`: (dict[str, type]) A dictionary of the names of return values as keys, to the datatypes of the return values as values. Note the name is a string used for display purposes - it doesn't need to match the variable name in the function, but does need to be ordered to match the return values. Supported datatypes include python builtin types, `numpy.ndarray`, and `matplotlib.figure.Figure`, which will get displayed correctly in the gui. Other data types can of course be returned but the gui won't know how to display them.
 * `hidden`: (bool) (Optional) This attribute can be set to `True` if you want to hide the function from the gui. This is useful for helper functions that are only built to be called from other functions, but not run standalone.
 * `calls`: (list[str]) (Optional) This defines a list of other antelope functions that this function depends on. This is useful for building up complex analysis functions from simpler ones, which helps with code reuse and modularity. Functions can be specified in the `folder.function` syntax, or, if the function is in the same script, just the `function` syntax.
+* `key`: (dict) (Optional) This parameter can be useful if your script is only designed to be run on, say, a single experiment. It should represent the key for the data the function applies to, which will be automatically applied in the gui.
 
 The function itself is then written in the `run` method of the class. This method takes the argument `key`, which is calculated when you run the function. Additionally, it should take in its optional arguments, preferably with well defined default arguments.
 
@@ -80,6 +82,7 @@ This second example counts a user's experiments. It demonstrates how your functi
     
         name = 'count_experiments'
         query = 'Experimenter'
+        data = 'Experiment'
         returns = {'count':int}
     
         def run(key):

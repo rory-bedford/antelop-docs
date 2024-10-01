@@ -81,3 +81,7 @@ To see what keyword arguments are available, check the `args` attribute as follo
    hello_world.greeting.args
 
 To see all functions available in antelope's standard library, see :ref:`stdlib`.
+
+Note, if you are writing analysis functions, it is useful to be able to reload them on the fly, without having to close and reopen your antelope shell. To do this, just run::
+
+    reload()

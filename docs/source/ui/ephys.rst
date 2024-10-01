@@ -5,6 +5,9 @@ The **electrophysiology** page allows you to insert spikesorting parameters, acq
 
 Before describing how to use this page, it is worth discussing the electrophysiology data that is extracted from the raw recordings. In any extracellular electrophyiology recording, the crucial data to extract is typically the spiketrains, LFPs, and unit waveforms. We aim to facilitate analysis by providing this data as numpy arrays that can be easily fetched through database queries. Importantly, for a given trial, these arrays should share a common clock, and their units and sample rates should be attached as metadata in the database. As a user, you therefore need to enter parameters for spikesorting, including preprocessing parameters, and additionally, extraction parameters detailing exactly how these arrays should be extracted, as well as information specifying the probes, and raw electrophysiology recordings.
 
+.. image:: ../images/ephys.png
+    :alt: Antelope electrophysiology schema
+
 Insert probe geometry
 ^^^^^^^^^^^^^^^^^^^^^
 

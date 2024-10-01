@@ -16,6 +16,8 @@ Writing functions
 
 Analysis functions include the analysis functions present in the Antelope standard library, and additionally, custom analysis functions found in the analysis folders you have defined in your configuration file. Custom analysis functions are written in Python and must follow a certain structure. This is detailed in :ref:`analysis`.
 
+While writing analysis functions, it is convenient to be able to reload your edits without restarting the gui. To do this, just use the reload button.
+
 Data input
 ^^^^^^^^^^
 
