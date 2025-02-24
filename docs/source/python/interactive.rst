@@ -5,7 +5,7 @@ Interactive use
 
 Basic usage
 -----------
-To use antelope's interactive mode, run the command `antelope-python` in the terminal, either in your conda environment, or with your singularity container alias set.
+To use antelop's interactive mode, run the command `antelop-python` in the terminal, either in your conda environment, or with your singularity container alias set.
 
 This command will prompt you for your database username and password. It will then establish a connection to the database, and will open an interactive IPython shell. All the database tables are automatically available as global variables. All the analysis functions, from both the standard library and your own analysis folders are available with the syntax `script_name.function()`.
 
@@ -46,15 +46,15 @@ We list show here the tables available in the database within their schema struc
 .. tabs::
    .. tab:: Metadata schema
       .. image:: ../images/session.png
-         :alt: Antelope metadata schema
+         :alt: Antelop metadata schema
 
    .. tab:: Electrophysiology schema
       .. image:: ../images/ephys.png
-         :alt: Antelope electrophysiology schema
+         :alt: Antelop electrophysiology schema
 
    .. tab:: Behaviour schema
       .. image:: ../images/behaviour.png
-         :alt: Antelope behaviour schema
+         :alt: Antelop behaviour schema
 
 Analysis functions
 ------------------
@@ -80,8 +80,8 @@ To see what keyword arguments are available, check the `args` attribute as follo
 
    hello_world.greeting.args
 
-To see all functions available in antelope's standard library, see :ref:`stdlib`.
+To see all functions available in antelop's standard library, see :ref:`stdlib`.
 
-Note, if you are writing analysis functions, it is useful to be able to reload them on the fly, without having to close and reopen your antelope shell. To do this, just run::
+Note, if you are writing analysis functions, it is useful to be able to reload them on the fly, without having to close and reopen your antelop shell. To do this, just run::
 
     reload()

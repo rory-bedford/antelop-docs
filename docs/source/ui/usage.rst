@@ -3,14 +3,14 @@ Overview
 
 Once you have opened the application, you first need to login. Your database administrator should have sent you your credentials.
 
-You can navigate through Antelope's different pages in the sidebar on the left.
+You can navigate through Antelop's different pages in the sidebar on the left.
 
 The first page allows you to search through any data in the database. The next set of pages are all involved in getting data into out various different SQL schemas, through uploading raw data and performing computations. With data in the database, you can then use our custom visualisation tools and analysis packages in the following pages. Finally, the admin page is for database administration and is not available for general users.
 
 Schema design
 ^^^^^^^^^^^^^
 
-We split our database into distinct schemas, which interconnect to form the full Antelope database.
+We split our database into distinct schemas, which interconnect to form the full Antelop database.
 
 First of all, there is the metadata schema. This contains just metadata about your experiments, animals and recording sessions, such as animal genetics or session datetimes. This is the schema you need to interact with first when adding data to the database.
 
@@ -23,15 +23,15 @@ Users should familiarise themselves with the structure of these schemas below (a
 .. tabs::
    .. tab:: Metadata schema
       .. image:: ../images/session.png
-         :alt: Antelope metadata schema
+         :alt: Antelop metadata schema
 
    .. tab:: Electrophysiology schema
       .. image:: ../images/ephys.png
-         :alt: Antelope electrophysiology schema
+         :alt: Antelop electrophysiology schema
 
    .. tab:: Behaviour schema
       .. image:: ../images/behaviour.png
-         :alt: Antelope behaviour schema
+         :alt: Antelop behaviour schema
 
 If you are unfamiliar with how relational databases work, the next section may be worth reading.
 
@@ -48,4 +48,4 @@ The grey tables are **lookup** tables, which have data that is predefined by the
 
 Further downstream in the pipeline, we encounter **computed** tables in red, which do not require any manual input, but are automatically populated by computation. Computed tables are fully reproducable - they can be deleted and have their entries reinstated by rerunning the computation that populated them. In our case, these computations take the form of predefined nextflow pipelines.
 
-Additionally, we have **imported** tables in blue. These tables track data outside the pipeline, but otherwise, are the same as computed tables. We use them for a very specific purpose, which is tracking the results of manual curation. Manual curation data is large and fairly unstructured. We feel it is not critical to store this data in the antelope pipeline explicitly. Instead, we use external storage space on the cluster, and track these external files. In the event of the loss of this external data, the curated spiking data will still be in the database, but the exact manual curation steps will not be reproducable.
+Additionally, we have **imported** tables in blue. These tables track data outside the pipeline, but otherwise, are the same as computed tables. We use them for a very specific purpose, which is tracking the results of manual curation. Manual curation data is large and fairly unstructured. We feel it is not critical to store this data in the antelop pipeline explicitly. Instead, we use external storage space on the cluster, and track these external files. In the event of the loss of this external data, the curated spiking data will still be in the database, but the exact manual curation steps will not be reproducable.

@@ -9,9 +9,9 @@ The pipelines are all in the Workflows branch of the repository.
 Some general pipeline notes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Antelope is built on top of DataJoint. However, it is not actually a DataJoint pipeline as DataJoint pipelines are intended to be constructed. The reason for this is that we found DataJoint to be lacking in functionality when it comes to how computations are performed. In fact, DataJoint computations, defined within a table's make() function, and called by running populate() on that table, are actually only designed to be run locally and sequentially. For large computations, such as running a number of spike sorters in parallel, this is very restrictive.
+Antelop is built on top of DataJoint. However, it is not actually a DataJoint pipeline as DataJoint pipelines are intended to be constructed. The reason for this is that we found DataJoint to be lacking in functionality when it comes to how computations are performed. In fact, DataJoint computations, defined within a table's make() function, and called by running populate() on that table, are actually only designed to be run locally and sequentially. For large computations, such as running a number of spike sorters in parallel, this is very restrictive.
 
-We therefore designed our computations as a set of distinct Nextflow pipelines. Each pipeline can be called from the web interface, and take the primary keys of the dependent entries as input parameters. Nextflow is a fantastic tool for complex pipeline construction as it allows dependencies between different jobs to be easily specified, and supports a range of computation engines to be used under the hood, which allows us to configure Antelope to run on a HPC using the SLURM job scheduler, or to run computations on a dedicated compute server, or to run them locally, on AWS, etc.
+We therefore designed our computations as a set of distinct Nextflow pipelines. Each pipeline can be called from the web interface, and take the primary keys of the dependent entries as input parameters. Nextflow is a fantastic tool for complex pipeline construction as it allows dependencies between different jobs to be easily specified, and supports a range of computation engines to be used under the hood, which allows us to configure Antelop to run on a HPC using the SLURM job scheduler, or to run computations on a dedicated compute server, or to run them locally, on AWS, etc.
 
 Our pipelines are all designed so that they first query the database to figure out which attributes to run for. For example, if you are spikesorting, you can perform a single computation by inputting a session key, just like running a single datajoint make() computation. Alternatively, you can input an experiment or animal key, and then the computation will occur for all sessions that belong to this key in parallel, up to the limits on cluster resources you have configured. This makes computation much, much quicker than running a datajoint populate() call, which will run computations one after the other. So the first nextflow process is this initial query, which fetches the keys deriving from the input parameter which have not been computed yet (such as all new sessions belonging to the input experiment). These keys are then fed as different entries into a nextflow channel, and run in parallel for the rest of the pipeline. Future nextflow processes then download any raw data needed, perform computations, and upload the results, all again in parallel.
 
@@ -44,9 +44,9 @@ Spikesorting pipeline
 .. figure:: ../images/spikesorting_dag.png
    :alt: Spikesorting pipeline
 
-   Antelope spikesorting pipeline
+   Antelop spikesorting pipeline
 
-Here we will detail the different processes in the spikesorting pipeline. Note the entire pipeline takes a key specifying a DataJoint restriction as input. All processes run in the appropriate singularity container - which could be our antelope_python container if they interact with the database, or the spikeinterface container or a specific spikesorter container.
+Here we will detail the different processes in the spikesorting pipeline. Note the entire pipeline takes a key specifying a DataJoint restriction as input. All processes run in the appropriate singularity container - which could be our antelop_python container if they interact with the database, or the spikeinterface container or a specific spikesorter container.
 
 QueryTrials
 ^^^^^^^^^^^
@@ -84,7 +84,7 @@ The channels are now recombined by probe, so each channel element now represents
 
 ExtractWaveforms
 ^^^^^^^^^^^^^^^^
-In this process, we convert all our data to the correct array formats for antelope. This takes some parameters such as sample rates. All the arrays are numpy, and are saved to disk inside pandas arrays using the `to_pickle` write function, so they can then be easily unpickled and added to the database in a single batch insert later.
+In this process, we convert all our data to the correct array formats for antelop. This takes some parameters such as sample rates. All the arrays are numpy, and are saved to disk inside pandas arrays using the `to_pickle` write function, so they can then be easily unpickled and added to the database in a single batch insert later.
 
 Additionally, we convert spikesorted data to phy format using spikeinterface. This gets saved to the appropriate cluster storage location as specified in the config.
 

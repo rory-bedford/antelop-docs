@@ -1,7 +1,7 @@
 Analysis framework
 ==================
 
-Antelope provides a custom framework for writing and running analysis functions on your database. Features this framework provides include automated running on different database keys, tight integration with the gui, and tools to aid reproducibility of a function run. We also provide a comprehensive standard library of common analyses.
+Antelop provides a custom framework for writing and running analysis functions on your database. Features this framework provides include automated running on different database keys, tight integration with the gui, and tools to aid reproducibility of a function run. We also provide a comprehensive standard library of common analyses.
 
 Running analysis functions
 --------------------------
@@ -55,7 +55,7 @@ Reproducibility
 
 The simple method of running a function described above works well for small analyse, and for testing while developing a function. However, a typical use case we envisage is that you would test a function on, say, a single session like so, but then run your analysis on all sessions belonging to a single experiment, potentially involving months' worth of recordings. In this case, you would presumably run your function on a cluster, and save your results to disk, for further analysis, visualisation, and publication. To do so, it is important to record *exactly* what function was run, on what data, with what parameters, etc.
 
-For these reasons, we provide a toolkit aimed at making exact the exact reproduction of a function run easy. We see this as a core feature of Antelope. Reproducibility within neuroscience can be very difficult in general, and the advent of the big-data era can make this problem even worse. However, with proper data engineering practises, this problem can in fact be solved, and our intention with this framework is to make this not only possible, but easy for all users to make a routine part of how they publish data.
+For these reasons, we provide a toolkit aimed at making exact the exact reproduction of a function run easy. We see this as a core feature of Antelop. Reproducibility within neuroscience can be very difficult in general, and the advent of the big-data era can make this problem even worse. However, with proper data engineering practises, this problem can in fact be solved, and our intention with this framework is to make this not only possible, but easy for all users to make a routine part of how they publish data.
 
 In particular, the important things to consider in order to make an analysis routine exactly reproducible are:
 
@@ -79,14 +79,14 @@ This file is json-based, and includes the following information:
 * `data_hash`: a hash of all data in the database the function could make use of
 * `code_hash`: a hash of the code of the function to check it hasn't changed
 
-Of particular importance is the data hash. Recall that each function in antelope specifies the database tables it will run on, the key it will use to fetch data, and other functions it can call. Our algorithm uses the MD5 hashing algorithm on all rows in the tables matching the function call's key that are available to the function. The hash runs on all table attributes, including blobs. The function can't run on any data outside these rows, so checking their hash is sufficient to ensure the data hasn't changed. One complication is that other functions called by the parent function can depend on different tables to the parent; our algorithm therefore traverses the graph of function calls to collect all tables the parent function depends on, including those from arbitrarily deep other function calls.
+Of particular importance is the data hash. Recall that each function in antelop specifies the database tables it will run on, the key it will use to fetch data, and other functions it can call. Our algorithm uses the MD5 hashing algorithm on all rows in the tables matching the function call's key that are available to the function. The hash runs on all table attributes, including blobs. The function can't run on any data outside these rows, so checking their hash is sufficient to ensure the data hasn't changed. One complication is that other functions called by the parent function can depend on different tables to the parent; our algorithm therefore traverses the graph of function calls to collect all tables the parent function depends on, including those from arbitrarily deep other function calls.
 
 A quick note on hashing results: we do not want to enforce that your analysis routines are necessarily deterministic, so we do not check a hash of your results. If you want to add this and your function is definitely deterministic, it would be very straightforaward to compute a hash of the pickle file of the results.
 
 Saving data with reproducibility
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Each antelope analysis function can be called via an additional method, called `save_result`, that writes both the results and our custom file to disk. This takes the same arguments as the function call itself, with an additional argument called 'filepath' that specifies where to save your results to. Results are always pickled to save them to disk, and should therefore end with `.pkl`, potentially with additional extensions specifying the compression to use if desired. These can then be loaded into a pandas dataframe as follows::
+Each antelop analysis function can be called via an additional method, called `save_result`, that writes both the results and our custom file to disk. This takes the same arguments as the function call itself, with an additional argument called 'filepath' that specifies where to save your results to. Results are always pickled to save them to disk, and should therefore end with `.pkl`, potentially with additional extensions specifying the compression to use if desired. These can then be loaded into a pandas dataframe as follows::
 
     import pandas as pd
     result = pd.read_pickle('results.pkl')

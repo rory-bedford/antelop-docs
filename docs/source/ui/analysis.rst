@@ -7,21 +7,21 @@ Run analysis
 .. figure:: ../images/analysis.png
    :alt: Analysis page
 
-   Antelope analysis page
+   Antelop analysis page
    
 The analysis page allows you to run any analysis on your data in the database.
 
 Writing functions
 ^^^^^^^^^^^^^^^^^
 
-Analysis functions include the analysis functions present in the Antelope standard library, and additionally, custom analysis functions found in the analysis folders you have defined in your configuration file. Custom analysis functions are written in Python and must follow a certain structure. This is detailed in :ref:`analysis`.
+Analysis functions include the analysis functions present in the Antelop standard library, and additionally, custom analysis functions found in the analysis folders you have defined in your configuration file. Custom analysis functions are written in Python and must follow a certain structure. This is detailed in :ref:`analysis`.
 
 While writing analysis functions, it is convenient to be able to reload your edits without restarting the gui. To do this, just use the reload button.
 
 Data input
 ^^^^^^^^^^
 
-When a function is written correctly within our guidelines, Antelope is able to automatically detect the input data it requires, and allows you to query the database graphically to automatically run your routines on a subset of the database without having to fetch data manually. Additionally, it is able to read the parameters your function takes to allow interactive input. It also reads the output types of your function to save or display results of different data types appropriately.
+When a function is written correctly within our guidelines, Antelop is able to automatically detect the input data it requires, and allows you to query the database graphically to automatically run your routines on a subset of the database without having to fetch data manually. Additionally, it is able to read the parameters your function takes to allow interactive input. It also reads the output types of your function to save or display results of different data types appropriately.
 
 Functions are organised into 'folders', which correspond to the name of the script they belong in. After selecting a function, you then select the subset of the database you want to run your function on, and input parameters to the function.
 

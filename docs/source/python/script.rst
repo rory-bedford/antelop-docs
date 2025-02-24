@@ -1,6 +1,6 @@
 .. _script:
 
-Using antelope in a script
+Using antelop in a script
 ==========================
 
 We also provide a means of connection to your database via a script. This can be very helpful if you want to automatically parse a large amount of pre-existing data and insert it into your database, without having to go through the gui.
@@ -14,14 +14,14 @@ We do not want to expose database credentials in a script, or write them to disk
 
 Within your script, you then want to establish a database connection. This can be done as follows::
 
-   from antelope.load_connection import *
+   from antelop.load_connection import *
 
 This reads all the tables and analysis functions for direct use in the script, just like in :ref:`interactive`.
 
 Custom helper functions
 -----------------------
 
-Certain aspects of antelope's database integrity are enforced at the application level. Some parts of our schema design are not completely simple to interact with. For these reasons, we expose several helper functions, which are the recommended way to interact with certain parts of the database. By understanding all of these, it will be fully possible to use antelope in a fully programmatic way, without the gui.
+Certain aspects of antelop's database integrity are enforced at the application level. Some parts of our schema design are not completely simple to interact with. For these reasons, we expose several helper functions, which are the recommended way to interact with certain parts of the database. By understanding all of these, it will be fully possible to use antelop in a fully programmatic way, without the gui.
 
 However, it is possible to use the python connector to interact without these helper functions, which could lead to your database being in an inconsistent state. We therefore recommend at least understanding these functions if you are going to insert complex data programmatically.
 
@@ -29,7 +29,7 @@ Split trials
 ^^^^^^^^^^^^
 We designed the masking functions to allow for the splitting of sessions into individual trials. This splitting is a common operation so we provide a function to efficiently do this for you. This function takes as arguments the event data and timestamps you want to split, and the mask data and timestamps, both of which should be a (data, timestamps) tuple. The data can be from any of AnalogEvents, DigitalEvents, IntervalEvents or Kinematics::
 
-   from antelope import split_trials
+   from antelop import split_trials
 
    mask = (Mask & restriction).fetch1('data','timestamps')
    events = (AnalogEvents & restriction).fetch1('data','timestamps')
@@ -40,7 +40,7 @@ This will return a list of (data, timestamps) tuples, each corresponding to a si
 
 Upload rig json
 ^^^^^^^^^^^^^^^
-As described in :ref:`behaviour`, antelope uses a custom json-based file format to describe your behaviour rig, all the different elements of your behaviour that will get recorded, and how to parse a NWB file to upload this data into our database structure. It is recommended to use our helper function to upload this file for two reasons. First of all, our function checks that the json file is valid according to our json schema. Downstream function assume this to be the case, so invalid rigs will make downstream processing impossible. Second, our function also automatically populates the `Feature` table, which allows you to further annotate features in the behaviour rig with data such as video attachments.
+As described in :ref:`behaviour`, antelop uses a custom json-based file format to describe your behaviour rig, all the different elements of your behaviour that will get recorded, and how to parse a NWB file to upload this data into our database structure. It is recommended to use our helper function to upload this file for two reasons. First of all, our function checks that the json file is valid according to our json schema. Downstream function assume this to be the case, so invalid rigs will make downstream processing impossible. Second, our function also automatically populates the `Feature` table, which allows you to further annotate features in the behaviour rig with data such as video attachments.
 
 This function is called `upload_rig_json` takes the following arguments::
 
@@ -51,7 +51,7 @@ This function is called `upload_rig_json` takes the following arguments::
 
 Note that the rig name, like all other names in the database, should be unique. This is quite important. In our lab, for example, we have four rigs of identical design but with slightly different measurements calibrating camera feeds, so its very important to be able to discriminate their geometries in the database for postprocessing and analysis.
 
-Masking functions are used to split sessions into trials, and are described in :ref:`behaviour-masks`. These are written in antelope's analysis format, so must be present in your analysis folder. The masklist argument is a list of dictionaries, each of which describes a mask, with the following keys:
+Masking functions are used to split sessions into trials, and are described in :ref:`behaviour-masks`. These are written in antelop's analysis format, so must be present in your analysis folder. The masklist argument is a list of dictionaries, each of which describes a mask, with the following keys:
 
 * name: a unique name for the mask
 * description: a description of the mask

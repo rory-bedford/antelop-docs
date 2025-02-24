@@ -2,14 +2,14 @@
 
 Behaviour
 ---------
-Antelope provides a comprehensive database structure to store all behavioural data associated with your experiments. This includes videos of the session, tracking data processed by DeepLabCut, a variety of recorded digital and analog events, as well as a description of your behaviour rig including its geometry.
+Antelop provides a comprehensive database structure to store all behavioural data associated with your experiments. This includes videos of the session, tracking data processed by DeepLabCut, a variety of recorded digital and analog events, as well as a description of your behaviour rig including its geometry.
 
 There are a lot of components involved in making our behavioural schema work. This is because, unlike electrophysiology or calcium imaging data, the behavioural data you want to record and store can vary considerably from experiment to experiment. We have therefore put considerable effort into designing a schema that can accomodate a wide range of setups, while including all the necessary data in a clear and usable format.
 
 .. image:: ../images/behaviour.png
-    :alt: Antelope electrophysiology schema
+    :alt: Antelop electrophysiology schema
 
-Before we begin using the behavioural schema, there are a few overarching points that need to be discussed. First of all, due to the wide variability in data acquisition systems, we enforce that data can only be imported into Antelope from a single file type: `NWB <https://www.nwb.org/>`_. NWB is a fantastic project, and its creators have already put a lot of work into creating a very flexible yet structured file type. There exist many tools to convert data from common acquisition systems to NWB, and guides on how to write your own conversion scripts if your data acquisition methods are more custom. We would strongly recommend that you make use of this fantastic tool anyway.
+Before we begin using the behavioural schema, there are a few overarching points that need to be discussed. First of all, due to the wide variability in data acquisition systems, we enforce that data can only be imported into Antelop from a single file type: `NWB <https://www.nwb.org/>`_. NWB is a fantastic project, and its creators have already put a lot of work into creating a very flexible yet structured file type. There exist many tools to convert data from common acquisition systems to NWB, and guides on how to write your own conversion scripts if your data acquisition methods are more custom. We would strongly recommend that you make use of this fantastic tool anyway.
 
 It is worth discussing the different data types that we support and the schema in detail. First of all, any given session takes place in a given recording rig, which we call the 'World'. Any given session can contain one or more animals, which are referred to as a 'Self'. All Objects in the World must be predefined features of the behavioural rig (which includes a description of any animals which will be in the rig). Objects can be just an element of the rig, such as an LED, or they could belong to an animal in the rig, such as a head sensor or a bodypart we want to track, in which case it would reference Self. Separately from Objects in the rig, there are also Videos of the rig. We allow for multiple cameras recording the same rig during the same session.
 
@@ -32,7 +32,7 @@ The first crucial component of the schema is the definition of your behaviour ri
 - It provides a clear description of the elements of your behaviour rig, including their data types and geometries.
 - It provides a mapping between the NWB file and our database schema that allows us to automatically import data from the NWB file into our database.
 
-Sometimes, it is helpful to manually define this json rig outside antelope, and then import it into the database. To do this, refer to the json schema in json-schema_. The general structure is not as complex as it seems, which we will describe shortly.
+Sometimes, it is helpful to manually define this json rig outside antelop, and then import it into the database. To do this, refer to the json schema in json-schema_. The general structure is not as complex as it seems, which we will describe shortly.
 
 However, to make things easier, we provide a graphical user interface to define your rig structure. This process is a bit fiddly and requires care to ensure your data gets imported correctly. However, note you will only ever need to do this a handful of times per lab, once for each behaviour rig you use, then all further features are fully automated!
 
@@ -40,7 +40,7 @@ First of all, you need to define the videos present in the rig. Often, you will 
 
 Additionally, you need to define the features in your rig. All features must align one-to-one with objects in your NWB file, except for bodyparts which you want to track with DeepLabCut, which don't need to be in the NWB. We will briefly describe the features of a NWB file that are relevant here:
 
-NWB splits data based on how it was acquired: was it raw collected data, was it preprocessed, was it a user defined stimulus, etc. You must select whether this feature is stored in the NWB under `acquisition`, `stimulus`, or `processing`. Processing data, in particular, requires an additional path (a string potentially with slashes separating paths), to show where in the processing module this feature is. The additional option, `DeepLabCut`, refers to features in the rig that will be processed internally in Antelope using DeepLabCut. These must be predefined at the time of rig definition. These would be bodyparts on an animal that you want to track, for example. These will always be kinematics data type. Note we also support DeepLabCut data that is processed outside antelope, and is therefore under `processing`.
+NWB splits data based on how it was acquired: was it raw collected data, was it preprocessed, was it a user defined stimulus, etc. You must select whether this feature is stored in the NWB under `acquisition`, `stimulus`, or `processing`. Processing data, in particular, requires an additional path (a string potentially with slashes separating paths), to show where in the processing module this feature is. The additional option, `DeepLabCut`, refers to features in the rig that will be processed internally in Antelop using DeepLabCut. These must be predefined at the time of rig definition. These would be bodyparts on an animal that you want to track, for example. These will always be kinematics data type. Note we also support DeepLabCut data that is processed outside antelop, and is therefore under `processing`.
 
 There is then the question of data ownership. Stimulus data can only belong to the world, while acquisition and processing data can belong to the world or an animal in the world. For the general description of the rig, we do not know which animals will be used, but we do know how many animals there will be. For single animal experiments this is very simple - you jsut say it belongs to self. For multi-animal experiments, we need to index the hypothetical animals, so we can say this feature (such as a bodypart or measuring device) belongs to animal 1, this one to animal 2, etc. When inserting data later, you then link these hypothetical animals to the actual animals used.
 
@@ -58,7 +58,7 @@ Import behavioural data
 
 Before importing a new behavioural session, make sure you have entered a new session in the metadata schema. Any behavioural session must belong to both a session and a behaviour rig in which the session was recorded. Additionally, if you have any videos attached to this recording, you can choose to use them in your training set for a DeepLabCut model - this is optional. If the rig requires one or more animals, you can then also select which animals were used in this session.
 
-Finally, you then browse your machine to upload the NWB file. The first thing that will occur is Antelope will check the NWB file is valid - that is, that it aligns perfectly with the definition of all the features in your behaviour rig. If it is invalid, you will get an error, and you will need to probably correct your behaviour rig definition (unless of course the NWB file itself is somehow at fault). The data will then be uploaded. If there are large external video files to be uploaded, this will occur in a background thread. Additionally, note that masking functions, discussed in behaviour-masks_, will be computed automatically for you at this point if already present in the database.
+Finally, you then browse your machine to upload the NWB file. The first thing that will occur is Antelop will check the NWB file is valid - that is, that it aligns perfectly with the definition of all the features in your behaviour rig. If it is invalid, you will get an error, and you will need to probably correct your behaviour rig definition (unless of course the NWB file itself is somehow at fault). The data will then be uploaded. If there are large external video files to be uploaded, this will occur in a background thread. Additionally, note that masking functions, discussed in behaviour-masks_, will be computed automatically for you at this point if already present in the database.
 
 .. _behaviour-masks:
 
@@ -73,7 +73,7 @@ Since the act of splitting any data into different trials is expected to be such
 
 .. code-block:: python
 
-    from antelope import split_trials
+    from antelop import split_trials
 
     mask = (Mask & restriction).fetch1('data','timestamps')
     events = (AnalogEvents & restriction).fetch1('data','timestamps')
@@ -82,13 +82,13 @@ Since the act of splitting any data into different trials is expected to be such
 
 So note that both the events you want to split, and the masks, must be tuples of ``(data, timestamps)`` as inputs to the function. This function will return a python list of trials, of which each element is a tuple of ``(data, timestamps)``, which are numpy arrays. This can then be looped through so your analysis can run separately on each trial, you can collate data across trials, etc.
 
-The way that you define masks can vary considerably from trial to trial. Therefore, your masking function must be written in code, and we utilise our well developed analysis framework for this purpose. Your masking function is just like any other analysis function, but it must have the additional attribute `mask` set to True, so that Antelope knows its purpose, and additional, it must return a data, timestamps array pair only, with the 1 on -1 off structure described above. It additionally must query the `World` table. It can utilise any behavioural data or other data in the database. Masks are to be defined for a particular behavioural paradigm, and therefore belong to the rig. Additionally, you can define multiple masks with different meanings in parallel for a given rig, then can pick and choose which is used for each analysis.
+The way that you define masks can vary considerably from trial to trial. Therefore, your masking function must be written in code, and we utilise our well developed analysis framework for this purpose. Your masking function is just like any other analysis function, but it must have the additional attribute `mask` set to True, so that Antelop knows its purpose, and additional, it must return a data, timestamps array pair only, with the 1 on -1 off structure described above. It additionally must query the `World` table. It can utilise any behavioural data or other data in the database. Masks are to be defined for a particular behavioural paradigm, and therefore belong to the rig. Additionally, you can define multiple masks with different meanings in parallel for a given rig, then can pick and choose which is used for each analysis.
 
 For example, we have defined a masking function for a specific behaviour as follows. The idea is that trials begin when LED turns on, and ends when a port is triggered. This is a fairly minimal example - we expect that often your logic will be more complex.
 
 .. code-block:: python
 
-    @antelope_analysis
+    @antelop_analysis
     class ExampleMask:
 
         name = 'example_mask'
@@ -115,16 +115,16 @@ For example, we have defined a masking function for a specific behaviour as foll
 
             return mask_data, mask_timestamps
 
-In terms of workflow, it is recommended that you upload at least one session for a given rig before attempting to define any masking functions. We then recommend that you write your masking function, and test its results using the python interface. Once you have run it, we recommend that you come back to this page, and select the masking function that you want for this specific rig. You can then upload the function to the database, and recompute any masking functions that are outstanding. If you come back and modify your masking functions, the computed masks will be deleted, and you will need to rerun them. Once a masking function is in the database already, future masks will be automatically computed by Antelope during the data insertion phase.
+In terms of workflow, it is recommended that you upload at least one session for a given rig before attempting to define any masking functions. We then recommend that you write your masking function, and test its results using the python interface. Once you have run it, we recommend that you come back to this page, and select the masking function that you want for this specific rig. You can then upload the function to the database, and recompute any masking functions that are outstanding. If you come back and modify your masking functions, the computed masks will be deleted, and you will need to rerun them. Once a masking function is in the database already, future masks will be automatically computed by Antelop during the data insertion phase.
 
 Label frames
 ^^^^^^^^^^^^
 
-The following sections are concerned exclusively with training and using a DeepLabCut model inside Antelope. This is an extremely useful feature of Antelope. For any behavioural rig, you can train one or more DeepLabCut models, and then all subsequent sessions using that rig can have their kinematics data automatically extracted using the trained model.
+The following sections are concerned exclusively with training and using a DeepLabCut model inside Antelop. This is an extremely useful feature of Antelop. For any behavioural rig, you can train one or more DeepLabCut models, and then all subsequent sessions using that rig can have their kinematics data automatically extracted using the trained model.
 
 Before you can use a model, you need to annotate some training data, and train the model. This first section is concerned with annotating data for training. To do this, you must have at least one session in the database for this behaviour rig, with a video attached to it. You can choose for each session whether or not to use it as a part of the training set for your model. Also, note that prior to annotating frames, you must be using a behaviour rig that has `DeepLabCut` features defined in it, otherwise there will be no features to track.
 
-This page walks you through the steps required to get a training data set. Once you have selected which videos belong to the training set, you need to download them to your local machine. This is done in the background, and data is saved to a temporary location for use by Antelope, so you don't need to explicitly worry about managing your DeepLabCut folder. Once the download is complete, you must select the parameters for your DeepLabCut model. These should be fairly self explanatory, however, we recommend that you refer to the `DeepLabCut documentation <https://DeepLabCut.github.io/DeepLabCut/docs/standardDeepLabCut_UserGuide.html>`_ for more information on what these parameters mean.
+This page walks you through the steps required to get a training data set. Once you have selected which videos belong to the training set, you need to download them to your local machine. This is done in the background, and data is saved to a temporary location for use by Antelop, so you don't need to explicitly worry about managing your DeepLabCut folder. Once the download is complete, you must select the parameters for your DeepLabCut model. These should be fairly self explanatory, however, we recommend that you refer to the `DeepLabCut documentation <https://DeepLabCut.github.io/DeepLabCut/docs/standardDeepLabCut_UserGuide.html>`_ for more information on what these parameters mean.
 
 Once this is complete, you can then extract frames for annotation. Finally, you can open DeepLabCut's napari-based viewer to annotate your frames. Again, this interface should be straightforward to use, but refer to the documentation if you have any issues. It's also very important to save you annotations within napari before uploading to the database. Once you're happy with your saved frames, you can upload them to the database, for automatic HPC-side training.
 
@@ -133,12 +133,12 @@ Train DeepLabCut
 
 This page very straightforwardly allows you to schedule DeepLabCut model training on the HPC. You just select the model, with labelled frames, that you want to train, and it will get scheduled on the cluster.
 
-Additionally, you can check the performance of a trained model. Antelope displays a number of performance metrics of the model, and the inference performed on the test and train data sets, which allows for a visual inspection. If you are happy with the model's performance, then you can use it with your rig for the rest of your experiment. If not, the recommended workflow is to delete your model, and go back and relabel with more data, and potentially different parameters, and train again.
+Additionally, you can check the performance of a trained model. Antelop displays a number of performance metrics of the model, and the inference performed on the test and train data sets, which allows for a visual inspection. If you are happy with the model's performance, then you can use it with your rig for the rest of your experiment. If not, the recommended workflow is to delete your model, and go back and relabel with more data, and potentially different parameters, and train again.
 
 Extract kinematics
 ^^^^^^^^^^^^^^^^^^
 
-Once you have a model you are happy with for your experiment/rig, then Antelope provides fast, parellelised inference on your uploaded sessions on the HPC. Just like spikesorting, you can run this periodically on any data you have that hasn't yet had inference run on it. The results are then stored in the database, and can be used for analysis.
+Once you have a model you are happy with for your experiment/rig, then Antelop provides fast, parellelised inference on your uploaded sessions on the HPC. Just like spikesorting, you can run this periodically on any data you have that hasn't yet had inference run on it. The results are then stored in the database, and can be used for analysis.
 
 .. _json-schema:
 
@@ -152,7 +152,7 @@ The formal definition of the behaviour rig json schema for reference:
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-            "specification": {"type": "string", "const": "antelope-behaviour"},
+            "specification": {"type": "string", "const": "antelop-behaviour"},
             "version": {"type": "string"},
             "reference_point": {"type": "string"},
             "features": {

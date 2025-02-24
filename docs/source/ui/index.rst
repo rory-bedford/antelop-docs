@@ -3,7 +3,7 @@
 Graphical User Interface
 ========================
 
-This section of the documentation is designed to be read by users of Antelope to help them use the graphical user interface.
+This section of the documentation is designed to be read by users of Antelop to help them use the graphical user interface.
 
 .. toctree::
    :maxdepth: 1

@@ -1,1 +1,1 @@
-Docs for the Antelope project
+Docs for the Antelop project

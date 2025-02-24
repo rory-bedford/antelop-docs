@@ -3,7 +3,7 @@
 Writing analysis functions
 ==========================
 
-Antelope provides a comprehensive standard library of analysis functions, discussed in :ref:`stdlib`. However, you will of course want to write your own analysis functions. We therefore provide a structured way of doing this, and recommend that you write your own functions within this framework.
+Antelop provides a comprehensive standard library of analysis functions, discussed in :ref:`stdlib`. However, you will of course want to write your own analysis functions. We therefore provide a structured way of doing this, and recommend that you write your own functions within this framework.
 
 Framework motivations
 ---------------------
@@ -26,7 +26,7 @@ We therefore provide a framework for writing analysis functions that addresses t
 Writing custom functions
 ------------------------
 
-Analysis functions in antelope are written as classes decorated by the `antelope_analysis` decorator. The class name can be anything, but must be unique and should be somewhat descriptive of the function's behaviour. These classes must define the following attributes:
+Analysis functions in antelop are written as classes decorated by the `antelop_analysis` decorator. The class name can be anything, but must be unique and should be somewhat descriptive of the function's behaviour. These classes must define the following attributes:
 
 * `name`: (str) The name of the function, as it will be accessed in the gui and python interface.
 * `query`: (str or list[str]) The name of the table that the function will query to give you the primary key. Note this does not mean the function will only query this table, but it will run in parallel on all keys in this table, or a subset of these keys. The query attribute could also be a list, which we discuss later.
@@ -34,7 +34,7 @@ Analysis functions in antelope are written as classes decorated by the `antelope
 * `args`: (dict[str, type]) (Optional) A dictionay of additional argument names, along with their python data types.
 * `returns`: (dict[str, type]) A dictionary of the names of return values as keys, to the datatypes of the return values as values. Note the name is a string used for display purposes - it doesn't need to match the variable name in the function, but does need to be ordered to match the return values. Supported datatypes include python builtin types, `numpy.ndarray`, and `matplotlib.figure.Figure`, which will get displayed correctly in the gui. Other data types can of course be returned but the gui won't know how to display them.
 * `hidden`: (bool) (Optional) This attribute can be set to `True` if you want to hide the function from the gui. This is useful for helper functions that are only built to be called from other functions, but not run standalone.
-* `calls`: (list[str]) (Optional) This defines a list of other antelope functions that this function depends on. This is useful for building up complex analysis functions from simpler ones, which helps with code reuse and modularity. Functions can be specified in the `folder.function` syntax, or, if the function is in the same script, just the `function` syntax.
+* `calls`: (list[str]) (Optional) This defines a list of other antelop functions that this function depends on. This is useful for building up complex analysis functions from simpler ones, which helps with code reuse and modularity. Functions can be specified in the `folder.function` syntax, or, if the function is in the same script, just the `function` syntax.
 * `key`: (dict) (Optional) This parameter can be useful if your script is only designed to be run on, say, a single experiment. It should represent the key for the data the function applies to, which will be automatically applied in the gui.
 
 The function itself is then written in the `run` method of the class. This method takes the argument `key`, which is calculated when you run the function. Additionally, it should take in its optional arguments, preferably with well defined default arguments.
@@ -49,12 +49,12 @@ Greeting
 """"""""
 This first function simply greets all users. It is a minimal example of how to write a function. The results were shown above::
 
-    from antelope import antelope_analysis
+    from antelop import antelop_analysis
 
-    @antelope_analysis
+    @antelop_analysis
     class Greeting:
         """
-        This is Antelope's hello world function.
+        This is Antelop's hello world function.
         """
     
         name = 'greeting'
@@ -73,7 +73,7 @@ Count experiments
 """""""""""""""""
 This second example counts a user's experiments. It demonstrates how your function can query one table for the keys it depends upon, while fetching data from a different table. For the following functions I show the results of running it with the restriction to the user `rbedford` to keep things simple::
 
-    @antelope_analysis
+    @antelop_analysis
     class CountExperiments:
         """
         This is a slightly more complex example showing how we can aggregate over another table and rename variables within the function.
@@ -99,7 +99,7 @@ Greeting with count
 """""""""""""""""""
 The following example shows how you can recursively call a function from within another function. This is really useful for code reusability::
 
-    @antelope_analysis
+    @antelop_analysis
     class GreetingWithCount:
         """
         This example shows how we can build on top of other functions and use multiple attributes, both within the same table and from different tables.
@@ -129,7 +129,7 @@ Spike-triggered average
 """""""""""""""""""""""
 For the following example, the natural domain over which to define our function is actually a join of two tables. This is because a spike-triggered average is defined to run on both a behavioural variable and a spiketrain::
 
-    @antelope_analysis
+    @antelop_analysis
     class Sta:
         """
         The spike-triggered average for an analog event.

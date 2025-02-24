@@ -3,7 +3,7 @@
 Python Interface
 ================
 
-This section of the documentation covers antelope's python interface, including how to use the interactive prompt, how to write scripts with antelope, and how to write custom analysis functions.
+This section of the documentation covers antelop's python interface, including how to use the interactive prompt, how to write scripts with antelop, and how to write custom analysis functions.
 
 .. toctree::
    :maxdepth: 1

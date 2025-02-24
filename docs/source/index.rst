@@ -1,9 +1,9 @@
-Welcome to Antelope's documentation!
+Welcome to Antelop's documentation!
 ====================================
 
-**Antelope** is a data storage and processing platform for neuroscientists.
+**Antelop** is a data storage and processing platform for neuroscientists.
 
-Antelope consists of a centralised lab storage server (built on MySQL and S3), and a set of computational pipelines to process and analyse this data. It provides two tools for users to interact with their data:
+Antelop consists of a centralised lab storage server (built on MySQL and S3), and a set of computational pipelines to process and analyse this data. It provides two tools for users to interact with their data:
 
 1. A **graphical user interface**, which provides a simple and intuitive means for users to:
 
@@ -23,12 +23,12 @@ Antelope consists of a centralised lab storage server (built on MySQL and S3), a
    * An object-oriented paradigm for extending the analysis suite
    * A strict data-hashing based reproducibility system for analysis function runs
 
-.. figure:: images/antelope.png
-    :alt: Antelope screenshot
+.. figure:: images/antelop.png
+    :alt: Antelop screenshot
 
-    Antelope user interface
+    Antelop user interface
 
-Why should I use Antelope?
+Why should I use Antelop?
 --------------------------
 
 Modern neuroscience labs have to deal with increasingly large amounts of data, along with increasingly complex computational processing of this data. Many labs leave data management up to the individual researchers, who typically design their own file hierarchies, and their own scripts to parse these files and process them. This leads to poor reproduceability, difficulties with collaboration and sharing of data, and can be time consuming for the individual researchers. Many labs therefore seek a solution to centralise their data storage and processing, in a way that can easily be used by all the lab's researchers.
@@ -39,14 +39,14 @@ However, the requirements of different systems neuroscience labs are often fairl
 
 A few different projects already exist that address some of these challenges. Most notably, `DataJoint <https://datajoint.com/>`_ provides a means of constructing data pipelines based on a SQL database, with user-defined computational steps populating downstream tables in a reproduceable manner. DataJoint Elements provides pre-defined computational pipelines for a range of neuroscience applications. However, DataJoint Elements still requires users to interact with their data in a programmatic way, and has its own learning curve that can be a barrier to its adoption by many neuroscientists. Our pipelines are designed to be as simple and interpretable as possible, and can be interacted with fully graphically to facilitate the adoption of the platform by a wide range of users.
 
-For these reasons, we have built Antelope with the following features:
+For these reasons, we have built Antelop with the following features:
 
 * The database and user interface can be centralised for a single lab, so all lab members can use it instantly in their browser without requiring different installs.
 * The user interface is intuitive to use and user-friendly. Researchers can immediately start uploading, annotating, processing and analysing their experimental data.
 * The schema is designed to be as simple as possible while still capturing enough structure for advanced analysis.
 * Standard data processing and analyses are provided out of the box in the user interface.
 * For more tailored analyses, the python package is easily extendible.
-* Antelope supports a range of different hardware infrastructures, including:
+* Antelop supports a range of different hardware infrastructures, including:
 
    + The choice between self-hosting the database or using web services such as AWS.
    + Support for a number of computational environments, including the option to run heavy computations on a HPC, a dedicated computing server, or locally.
@@ -69,7 +69,7 @@ For these reasons, we have built Antelope with the following features:
 Supported experiment types
 --------------------------
 
-At present, Antelope supports the following experiment types:
+At present, Antelop supports the following experiment types:
 
 * Extracellular electrophysiology
 
@@ -99,7 +99,7 @@ In the future, we plan to incorporate the following additional features:
 Credits
 -------
 
-Antelope is built upon a number of existing projects, without which, its development would not be possible. Most notably:
+Antelop is built upon a number of existing projects, without which, its development would not be possible. Most notably:
 
 * `Streamlit <https://streamlit.io/>`_ (for the user interface)
 * `Neo <https://neo.readthedocs.io/>`_ (for reading a wide range of electrophysiology acquisition inputs)

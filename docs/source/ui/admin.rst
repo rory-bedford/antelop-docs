@@ -3,12 +3,12 @@ Admin
 
 Note that the admin pages are only available to database administrators. They allow database administrators to restore temporarily deleted data, permanently delete data, and release data from computation.
 
-If you are familiar with the rest of Antelope then these admin pages should be self-explanatory. However, the exact behaviour of certain functions here need discussing, particularly with regards to data integrity.
+If you are familiar with the rest of Antelop then these admin pages should be self-explanatory. However, the exact behaviour of certain functions here need discussing, particularly with regards to data integrity.
 
 .. figure:: ../images/admin.png
    :alt: Admin page
 
-   Antelope admin page
+   Antelop admin page
 
 .. _admin:
 

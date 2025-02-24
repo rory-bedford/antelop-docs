@@ -9,7 +9,7 @@ Timeseries
 .. figure:: ../images/vis.png
    :alt: Timeseries page
 
-   Antelope timeseries page
+   Antelop timeseries page
 
 Our timeseries visualisations allows you to display spiketrains, LFPs, behavioural events and kinematics, and trial masks, all with a common clock, for a given recording session.
 
@@ -23,7 +23,7 @@ Unit waveforms
 .. figure:: ../images/unit.png
    :alt: Timeseries page
 
-   Antelope timeseries page
+   Antelop timeseries page
 
 
 The unit waveforms page allows you to display the waveforms for all units in a given session. It also computes some basic quality metrics for each unit. While this doesn't provide a standin for a fully-fledged tool such as phy, it can be useful for quickly assessing the results of spikesorting.

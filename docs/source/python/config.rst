@@ -11,8 +11,8 @@ Cluster installation
 ^^^^^^^^^^^^^^^^^^^^
 The cluster installation is provided as a singularity container. This should have been set up and configured by your database administrator. The container can be run as an executable if you have singularity installed, so you just need to execute::
 
-    /path/to/antelope-python.sif
+    /path/to/antelop-python.sif
 
 If you're going to use this method a lot, we recommend using a bash alias to make this easier. In your bashrc, just add::
 
-    alias antelope-python='/path/to/antelope-python.sif'
+    alias antelop-python='/path/to/antelop-python.sif'
