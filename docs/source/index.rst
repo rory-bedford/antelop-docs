@@ -7,7 +7,7 @@ Antelop consists of a centralised lab storage server (built on MySQL and S3), an
 
 1. A **graphical user interface**, which provides a simple and intuitive means for users to:
 
-   * Enter experimental trials
+   * Enter experimental sessions
    * Add annotations
    * Upload raw experimental data
    * Schedule data processing jobs on a HPC
@@ -92,7 +92,7 @@ At present, Antelop supports the following experiment types:
    + Also provides a set of visualisations for these analyses, such as raster plots and tuning curves
    + Writing custom analysis functions is straightforward, and we provide a particular object-oriented paradigm for your own functions that performs database queries for you under the hood
 
-In the future, we plan to incorporate the following additional features:
+In the near future, we plan to incorporate the following additional features:
 
 * Calcium imaging
 
@@ -104,6 +104,7 @@ Antelop is built upon a number of existing projects, without which, its developm
 * `Streamlit <https://streamlit.io/>`_ (for the user interface)
 * `Neo <https://neo.readthedocs.io/>`_ (for reading a wide range of electrophysiology acquisition inputs)
 * `Spikeinterface <https://spikeinterface.readthedocs.io/>`_ (for the containerised spike sorters and electrophysiology processing)
+* `DeepLabCut <https://www.mackenziemathislab.org/deeplabcut>`_ (for animal tracking)
 * `DataJoint <https://datajoint.com/>`_ (for the SQL queries)
 * `Nextflow <https://www.nextflow.io/>`_ (for constructing computational pipelines)
 

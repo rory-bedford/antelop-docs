@@ -39,7 +39,7 @@ Note the the lightweight version with no additional dependencies just allows you
 Configuration
 """""""""""""
 
-On first use, you'll need to run `antelop-config` to configure your app. This process includes linking antelop to your lab's database, your compute cluster, and local storage.
+On first use, you'll need to run `antelop-config` to configure your app, or alternatively, run `antelop` to be directed to a graphical configuration tool. This process includes linking antelop to your lab's database, your compute cluster, and local storage.
 
 In order, the steps are:
 
@@ -64,6 +64,9 @@ In order, the steps are:
   - Most clusters have a way of mounting your cluster storage onto your local machine. Antelop needs to know the path to this directory on your local machine.
   - This should be an absolute Windows or Unix path.
   - If mounting is not possible, you won't be able to manually curate data in phy and track cluster jobs progress, but all other antelop features will still work.
+- Github:
+  - If you want to automatically have access to your lab's Antelop analysis scripts, you can configure Antelop to automatically pull from your lab's Github repository.
+  - Simply give your repository an optional name, such as 'trilab-scripts', and enter the URL of the GitHub repository. Note that the name should be a unique and usable python variable, so avoid spaces and special characters. Your scripts will be available under this name.  
 
 If you want to manually edit your configuration file, it is stored in ~/.config/antelop/config.toml on Unix, and in %APPDATA%/antelop/config.toml on Windows.
 

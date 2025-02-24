@@ -1,61 +1,14 @@
-Analysis framework
-==================
+Reproducability framework
+=========================
 
-Antelop provides a custom framework for writing and running analysis functions on your database. Features this framework provides include automated running on different database keys, tight integration with the gui, and tools to aid reproducibility of a function run. We also provide a comprehensive standard library of common analyses.
+Antelop provides a custom framework for running analysis functions on the database. These functions can include any outputs you would want to save for eventual conclusion in a paper, such as plots, tables, or other data. This framework provides a few features that can help your workflow significantly: namely, tight integration with the GUI, automatic saving of your results, and integration with your lab's GitHub so you can share scripts easily.
 
-Running analysis functions
---------------------------
+However, the primary feature that makes this framework important is its focus on reproducibility. In neuroscience, it is incredibly difficult to reproduce results from a paper, and keep precise track of what analysis you ran and on what data. For instance, after preprocessing, you may run a script on 100 units you recorded in an electrophysiolgoy experiment, and store this somewhere on your machine. You may then later change some spikesorting parameters and preprocess things again, or modify your script slightly, or forget what arguments you used for your analysis routine, or lose track of your data, or leave the lab, etc. It quickly becomes nearly impossible to reproduce how that exact figure or table was created.
 
-Analysis functions are very straightforward to run. They take in as their first argument a key that restricts the function to run on a subset of your database. In the absence of any key, the function will run on the entirety of the database. The key can be a dictionary or a string, in datajoint syntax. They then take as optional keyword arguments the additional arguments to the function. Functions always return a list of dictionaries, with the primary keys it ran on and the results. These can easily be loaded into a pandas dataframe using `pd.DataFrame(result)`.
-
-As an example, consider running the first function in our demonstration script in the analysis standard library::
-
-    hello_world.greeting()
-
-For our lab's database, this returns:
-
-+-------------+------------------------------+
-| experimenter| greeting                     |
-+=============+==============================+
-| arueda      | Hello, Ana Gonzalez-Rueda!   |
-+-------------+------------------------------+
-| dmalmazet   | Hello, Daniel de Malmazet!   |
-+-------------+------------------------------+
-| dwelch      | Hello, Daniel Welch!         |
-+-------------+------------------------------+
-| ewilliams   | Hello, Elena Williams!       |
-+-------------+------------------------------+
-| fmorgese    | Hello, Fabio Morgese!        |
-+-------------+------------------------------+
-| mtripodi    | Hello, Marco Tripodi!        |
-+-------------+------------------------------+
-| rbedford    | Hello, Rory Bedford!         |
-+-------------+------------------------------+
-| srogers     | Hello, Stefan Rogers-Coltman!|
-+-------------+------------------------------+
-| yyu         | Hello, Yujiao Yu!            |
-+-------------+------------------------------+
-
-Or alternatively, changing an argument and running on a restriction::
-
-    hello_world.greeting({'experimenter':'rbedford'}, excited=False)
-
-Gives:
-
-+-------------+------------------------------+
-| experimenter| greeting                     |
-+=============+==============================+
-| rbedford    | Hello, Rory Bedford.         |
-+-------------+------------------------------+
-
-.. _reproducibility:
+Our framework builds upon the benefits of having a centralised and structured lab database, and version control in GitHub. We end up with a framework that can exactly rerun any analysis you have done, on the same data, with the same parameters, and the same code. This is a powerful tool for ensuring the reproducibility of your work, and for sharing your work with the community. Our framework ends up producing a small metadata file that records everything necessary to reproduce what was run, and any future user just needs to drag and drop this into the GUI or load it in python and can rerun your exact analysis. We aim to make this level of rigour in your reproducability efforts easy and standardized.
 
 Reproducibility
 ---------------
-
-The simple method of running a function described above works well for small analyse, and for testing while developing a function. However, a typical use case we envisage is that you would test a function on, say, a single session like so, but then run your analysis on all sessions belonging to a single experiment, potentially involving months' worth of recordings. In this case, you would presumably run your function on a cluster, and save your results to disk, for further analysis, visualisation, and publication. To do so, it is important to record *exactly* what function was run, on what data, with what parameters, etc.
-
-For these reasons, we provide a toolkit aimed at making exact the exact reproduction of a function run easy. We see this as a core feature of Antelop. Reproducibility within neuroscience can be very difficult in general, and the advent of the big-data era can make this problem even worse. However, with proper data engineering practises, this problem can in fact be solved, and our intention with this framework is to make this not only possible, but easy for all users to make a routine part of how they publish data.
 
 In particular, the important things to consider in order to make an analysis routine exactly reproducible are:
 
@@ -64,7 +17,7 @@ In particular, the important things to consider in order to make an analysis rou
 * Parameter consistency: the parameters passed to the function should be recorded exactly.
 * Dependency consistency: the exact environment in which you are running your analysis should be recorded.
 
-Now, some of these challenges are already addressed by widely used tools in the community. For example, for the final point of dependency consistency, tools such as virtual environments (eg conda), or containers (eg singularity), should be used to exactly reproduce the environment in which the function was run, and are widely distributed with the code repository accompanying a publication. Data availability is addressed by a number of tools as described in `DataJoint's documentation <https://datajoint.com/docs/core/datajoint-python/0.14/publish-data/>`_. For example, you can provide access to your MySQL database to the community, or export your data to a format such as NWB for sharing, or containerise your database in Docker with a SQL dump so users can run their own instance of your database. We provide additional functionality on top of these methods, designed to be used alongside them, that rigourously checks the consistency of the data when sharing for a publication.
+Now, some of these challenges are already addressed by widely used tools in the community. For example, for the final point of dependency consistency, tools such as virtual environments (eg conda), or containers (eg singularity), should be used to reproduce the environment in which the function was run, and are widely distributed with the code repository accompanying a publication. Data availability is addressed by a number of tools as described in `DataJoint's documentation <https://datajoint.com/docs/core/datajoint-python/0.14/publish-data/>`_. For example, you can provide access to your MySQL database to the community, or export your data to a format such as NWB for sharing, or containerise your database in Docker with a SQL dump so users can run their own instance of your database. We provide additional functionality on top of these methods, designed to be used alongside them, that rigourously checks the consistency of the data when sharing for a publication.
 
 Reproducibility file
 ^^^^^^^^^^^^^^^^^^^^
@@ -73,6 +26,8 @@ We provide a method to run your analysis function that saves the results to disk
 
 This file is json-based, and includes the following information:
 
+* `location`: the location of the function
+* `folder`: the folder of the function
 * `name`: the name of the function that was run
 * `restriction`: the restriction that the fucntion was run on
 * `arguments`: the arguments passed to the function
@@ -83,40 +38,3 @@ Of particular importance is the data hash. Recall that each function in antelop 
 
 A quick note on hashing results: we do not want to enforce that your analysis routines are necessarily deterministic, so we do not check a hash of your results. If you want to add this and your function is definitely deterministic, it would be very straightforaward to compute a hash of the pickle file of the results.
 
-Saving data with reproducibility
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Each antelop analysis function can be called via an additional method, called `save_result`, that writes both the results and our custom file to disk. This takes the same arguments as the function call itself, with an additional argument called 'filepath' that specifies where to save your results to. Results are always pickled to save them to disk, and should therefore end with `.pkl`, potentially with additional extensions specifying the compression to use if desired. These can then be loaded into a pandas dataframe as follows::
-
-    import pandas as pd
-    result = pd.read_pickle('results.pkl')
-
-By default, filepath is set to `./result.pkl`. In addition to the result, the reproducibility file is saved with the same name and location but the json extension. This should then be distributed along with the results.
-
-For example, to run the first function in our demonstration script, saving in the current directory, on the entire database, with default parameters, you would run::
-
-    hello_world.greeting.save_result()
-
-To specify parameters::
-
-    hello_world.greeting.save_result('./result.pkl', {'experimenter':'rbedford'}, excited=False)
-
-Validating a function run
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To validate the integrity of all the above factors before rerunning an analysis function, we provide the `check_hash` method. This takes as input just the reproducibilty json file. It checks the data_hash and code_hash against the database and function definition, and returns a message describing what's changed, or whether you car rerun the function. For example::
-
-    hello_world.greeting.check_hash('./result.json')
-
-Returns::
-
-    Reproducibilty checks passed
-
-Rerunning a function
-^^^^^^^^^^^^^^^^^^^^
-
-A similar method to the one above reruns the analysis function and saves the results, after checking the hashes as above. This method takes in both the saved json, and an output to save results to. Execute as follows::
-
-    hello_world.greeting.reproduce('./result.json', './result.pkl')
-
-This allows you to reproduce the results of an analysis.
