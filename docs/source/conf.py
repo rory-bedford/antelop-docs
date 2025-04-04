@@ -31,6 +31,14 @@ templates_path = ["_templates"]
 # -- Options for HTML output
 
 html_theme = "sphinx_rtd_theme"
+html_logo = "images/logo.png"
 
 # -- Options for EPUB output
 epub_show_urls = "footnote"
+
+html_theme_options = {
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'version_selector': True,
+    'language_selector': True,
+}

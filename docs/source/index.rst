@@ -108,10 +108,9 @@ Antelop is built upon a number of existing projects, without which, its developm
 * `DataJoint <https://datajoint.com/>`_ (for the SQL queries)
 * `Nextflow <https://www.nextflow.io/>`_ (for constructing computational pipelines)
 
-Contents
---------
 
 .. toctree::
+   :hidden:
    :maxdepth: 2
 
    ui/index
