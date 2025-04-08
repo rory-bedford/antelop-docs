@@ -1,31 +1,16 @@
 Welcome to Antelop's documentation!
 ====================================
 
-.. figure:: images/logo-white.png
+.. figure:: images/antelop-transparent.png
     :alt: Antelop logo
 
+.. raw:: html
 
-**Antelop** is a data storage and processing platform for neuroscientists.
-
-
-1. A **graphical user interface**, which provides a simple and intuitive means for users to:
-
-   * Enter experimental sessions
-   * Add annotations
-   * Upload raw experimental data
-   * Schedule data processing jobs on a HPC
-   * Test different processing parameter sets
-   * Analyse the results
-   * Query the database and download results
-
-
-2. A **python package**, which provides:
-
-   * A comprehensive library of standard analysis functions
-   * Interaction with the database through SQL queries
-   * An object-oriented paradigm for extending the analysis suite
-   * A strict data-hashing based reproducibility system for analysis function runs
-
+   <div class="mission-container">
+       <p><p>
+       <p><strong>Antelop</strong> is a data storage, preprocessing, visualisation and analysis platform for systems neuroscience.</p>
+       <p>Our mission statement is to lower the entry barrier for labs to adopt modern, high-throughput data engineering practices, to facilitate better reproducibility and collaboration within the field.</p>
+   </div>
 
 
 Why should I use Antelop?
@@ -37,73 +22,98 @@ A number of tools exist to address these challenges, such as relational database
 
 However, the requirements of different systems neuroscience labs are often fairly uniform. For example, if a lab performs electrophysiology experiments, they typically want to store the raw experimental output from their acquisition system, and extract both LFPs and spike trains from this raw data, before applying a number of analysis routines on this extracted data, most likely involving behavioural data from the recording session. We believe that a platform that allows these steps to be done, with the flexibility to incorporate a range of different experimental setups and computational infrastructures, with highly customizable processing parameters, and an extendible set of analysis tools, could be an immense benefit to a number of neuroscience labs.
 
+Antelop Features
+----------------
+
+* A **MySQL and S3 database**, facilitating:
+
+   + An uniform yet flexible way to structure experimental data
+   + A centralised location for data storage and collaboration
+   + A fast and rich query language to search your data
+
+* A set of **HPC- or cloud-based preprocessing pipelines**, supporting:
+
+   + Uniform and reproducible preprocessing of several experimental datatypes
+   + Efficient workload distribution and parallelisation
+   + Diverse preprocessing parameters 
+
+* A **graphical user interface**, which provides a simple and intuitive means for users to:
+
+   + Manage their experimental data and metadata
+   + Import and export data to common formats such as NWB
+   + Schedule data processing jobs on the HPC/cloud
+   + Visualise many datatypes
+   + Run and inspect analysis pipelines from our comprehensive standard library
+   + GitHub integration for your lab's custom analysis scripts
+
+* A **python package**, which extends the graphical interface through:
+
+   + Interaction with the database through SQL queries
+   + Programmatic flexibility for when you have more custom processing requirements
+   + An object-oriented paradigm for extending the analysis suite
+
+Supported data types
+--------------------
+
+* **Extracellular electrophysiology**
+
+   + Supports a wide range of probes, such as tetrodes, neuropixels, or custom probe designs
+   + Supports a wide range of the most popular modern spike sorters
+   + Is integrated with phy for manual curation
+   + Allows for localisation of units through the probe insertion coordinates
+   + Provides a set of standard analysis functions and visualisations for the unit spike trains and LFPs
+
+* **Behavioural data**
+
+   + Supports a range of behavioural data types, such as videos, hardware ttls, or tracking data
+   + The geometry of your behavioural rig and all hardware acquisitions are specified via a custom json file
+   + Data is then automatically parsed and stored in the database in stuctured arrays
+   + We also incorporate the training and inference of DeepLabCut models for tracking
+
+* **Analysis suite**
+
+   + Provides a broad set of standard analysis functions for electrophysiology and behavioural data, such as spike-triggered averages
+   + Also provides a set of visualisations for these analyses, such as raster plots and tuning curves
+   + Writing custom analysis functions is straightforward, and we provide a particular object-oriented paradigm for your own functions that performs database queries for you under the hood
+
+In the near future, we plan to incorporate the following additional features:
+
+* **Calcium imaging**
+
+
 .. dropdown:: Screenshots
 
     .. tab-set::
 
-        .. tab-item:: 1
+        .. tab-item:: Search
 
             .. figure:: images/antelop.png
                 :alt: Antelop screenshot
+                :scale: 35%
 
-        .. tab-item:: 2
+        .. tab-item:: Spiketrain
 
-            Hi?
+            .. figure:: images/vis.png
+                :alt: Antelop screenshot
+                :scale: 35%
 
-.. dropdown:: Antelop features
+        .. tab-item:: Unit Waveforms
 
-    * The database and user interface can be centralised for a single lab, so all lab members can use it instantly in their browser without requiring different installs.
-    * The user interface is intuitive to use and user-friendly. Researchers can immediately start uploading, annotating, processing and analysing their experimental data.
-    * The schema is designed to be as simple as possible while still capturing enough structure for advanced analysis.
-    * Standard data processing and analyses are provided out of the box in the user interface.
-    * For more tailored analyses, the python package is easily extendible.
-    * Antelop supports a range of different hardware infrastructures, including:
+            .. figure:: images/unit.png
+                :alt: Antelop screenshot
+                :scale: 35%
 
-       + The choice between self-hosting the database or using web services such as AWS.
-       + Support for a number of computational environments, including the option to run heavy computations on a HPC, a dedicated computing server, or locally.
-       + The choice of a persistent web interface on a dedicated server, or running the GUI locally like a Jupyter notebook.
+        .. tab-item:: Analysis
 
-    * The setup is made as simple as possible, namely:
+            .. figure:: images/analysis.png
+                :alt: Antelop screenshot
+                :scale: 35%
 
-       + The MySQL database and S3 store can be installed and configured quickly via docker containers.
-       + The cluster pipelines run on Nextflow with all dependencies containerised, and we provide a simple install script to configure and set this up.
-       + The user interface and python package can be installed locally via pip, and are configured via a simple command line tool or a toml file.
+        .. tab-item:: Python
 
-    * The benefits of a SQL database all apply, including:
-
-       + Centralised data storage for the lab
-       + Simple management of user permissions
-       + Easy sharing of data with collaborators
-       + The ability to perform automated/manual backups of the entire database
-       + Very fast and flexible database queries
-
-
-.. dropdown:: Supported data types
-
-    * Extracellular electrophysiology
-
-       + Supports a wide range of probes, such as tetrodes, neuropixels, or custom probe designs
-       + Supports a wide range of the most popular modern spike sorters
-       + Is integrated with phy for manual curation
-       + Allows for localisation of units through the probe insertion coordinates
-       + Provides a set of standard analysis functions and visualisations for the unit spike trains and LFPs
-
-    * Behavioural data
-
-       + Supports a range of behavioural data types, such as videos, hardware ttls, or tracking data
-       + The geometry of your behavioural rig and all hardware acquisitions are specified via a custom json file
-       + Data is then automatically parsed and stored in the database in stuctured arrays
-       + We also incorporate the training and inference of DeepLabCut models for tracking
-
-    * Analysis suite
-
-       + Provides a broad set of standard analysis functions for electrophysiology and behavioural data, such as spike-triggered averages
-       + Also provides a set of visualisations for these analyses, such as raster plots and tuning curves
-       + Writing custom analysis functions is straightforward, and we provide a particular object-oriented paradigm for your own functions that performs database queries for you under the hood
-
-    In the near future, we plan to incorporate the following additional features:
-
-    * Calcium imaging
+            .. figure:: images/antelop-python.png
+                :alt: Antelop screenshot
+                :scale: 35%
 
 
 .. dropdown:: Credits

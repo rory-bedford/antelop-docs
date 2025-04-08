@@ -61,7 +61,7 @@ Recompute masks
 ^^^^^^^^^^^^^^^
 As described in :ref:`behaviour-masks`, we store masks in the database, which are used to split sessions into trials. These are computed immediately upon data insertion, to ensure all your behaviour recording sessions have the appropriate data defining trials in them. However, you do need to write your masking functions, which are often fairly customised, and test that they work correctly. The recommended workflow is to insert a small subset of data, such as a single session, and then write your masking functions. Once you are happy that they work, you need to of course recompute the masks in the database for these test sessions, which is what this helper function does.
 
-Thhis function is called `recompute_masks` and takes the following arguments::
+This function is called `recompute_masks` and takes the following arguments::
 
     key (dict): session primary key
 

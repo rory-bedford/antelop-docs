@@ -49,7 +49,7 @@ Due to Antelop's complexity, we currently have no automated unit tests. This is 
 * If you are modifying a cluster pipeline, you must run that pipeline succesfully to completion on sample data from the lab before merging.
 * If you are modifying any analysis scripts, you must verify that it runs correctly on sample data from the lab before merging.
 * For other types of changes, we leave it to your best discretion how to run tests.
-* **However,** any major changes to Antelop's infrastructure, such as how it connects to the database or cluster, or how it imports analysis scripts, must be reviewed by the elad author prior to merging.
+* **However,** any major changes to Antelop's infrastructure, such as how it connects to the database or cluster, or how it imports analysis scripts, must be reviewed by the lead author prior to merging.
 
 Contributing Changes
 --------------------

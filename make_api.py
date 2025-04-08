@@ -7,6 +7,7 @@ import importlib
 import inspect
 import pkgutil
 
+
 def generate_rst_for_module(module_name, output_filename='docs/source/api/analysis.rst'):
     """
     Generates an .rst file with Sphinx documentation for all classes that are part of the 'antelop.utils.analysis_base' module
@@ -30,6 +31,11 @@ def generate_rst_for_module(module_name, output_filename='docs/source/api/analys
         except ImportError:
             print(f"Error: Unable to import module '{module_name}'. Please check if the module is in sys.path.")
             return
+        
+        # Write the module docstring, if available
+        module_doc = inspect.getdoc(module)
+        if module_doc:
+            rst_file.write(f"{module_doc}\n\n")  # Write the docstring of the module
         
         # Discover all submodules in the module
         print(f"Discovering submodules for {module_name}...")
@@ -76,6 +82,11 @@ def generate_rst_for_module(module_name, output_filename='docs/source/api/analys
             rst_file.write(f"\n{submodule_name.capitalize()}\n")
             rst_file.write("-" * len(submodule_name) + "\n\n")
             
+            # Write the docstring of the submodule, if available
+            submodule_doc = inspect.getdoc(importlib.import_module(submodule))
+            if submodule_doc:
+                rst_file.write(f"{submodule_doc}\n\n")
+
             # Iterate over the classes
             for cls in classes:
                 # Use the class's 'name' attribute (without the full module path)
@@ -83,7 +94,8 @@ def generate_rst_for_module(module_name, output_filename='docs/source/api/analys
                 class_doc = inspect.getdoc(cls)
 
                 # Write the class documentation using .. class:: directive
-                rst_file.write(f".. class:: {class_name}\n\n")
+                rst_file.write(f".. class:: {class_name}\n")
+                rst_file.write("   :noindex:\n\n")
 
                 # Indent the class docstring and replace every \n with \n\n (double line breaks)
                 if class_doc:
@@ -128,7 +140,17 @@ def generate_rst_for_module(module_name, output_filename='docs/source/api/analys
         print(f"Documentation has been written to '{output_filename}'.")
 
 if __name__ == '__main__':
+
     # Set the hardcoded module and output file path
     module_name = 'antelop.analysis'  # The module to document
     generate_rst_for_module(module_name)
+    with open("docs/source/api/analysis.rst", "r") as f:
+        lines = f.readlines()    
 
+    lines[0] = "Analysis standard library\n"
+    lines[1] = "=========================\n"
+
+    with open("docs/source/python/stlib.rst", "w") as f:
+        f.writelines(lines)
+
+    

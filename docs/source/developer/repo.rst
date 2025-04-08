@@ -5,11 +5,10 @@ Antelop involves a few distinct components that undergo separate development, ne
 
 The structure is as follows:
 
-* database - this folder contains the `docker-compose.yml` file and `init.sql` and instructions so users can set up their S3 store and MySQL database, configured for use with DataJoint/Antelop.
-* docs - this folder contains all the documentation, built automatically and hosted at https://antelop.readthedocs.io/en/latest/setup.html.
-* install_scripts - this folder should be seen by admins wanting to install Antelop on the cluster. It contains installation scripts, containers, and a README to help users get started with setting up Antelop as easily as possible.
-* src/antelop - this folder contains all the code for the graphical user interface and the python pacakge.
-* workflows - this folder contains the Nextflow scripts which need to be installed on the computational server/HPC. This folder is for development purposes - it gets copied to the cluster during installation.
+* **docs** - this folder contains all the documentation, built automatically and hosted at https://antelop.readthedocs.io/en/latest/setup.html.
+* **install_scripts** - this folder should be seen by admins wanting to install Antelop's cluster pipelines and databases. It contains installation scripts, containers, and a README to help users get started with setting up Antelop as easily as possible.
+* **src/antelop** - this folder contains all the code for the graphical user interface and the python pacakge.
+* **workflows** - this folder contains the Nextflow scripts which need to be installed on the computational server/HPC. This folder is for development purposes - it gets copied to the cluster during installation.
 
 Since the bulk of the project is the gui and python interface, we will discuss the structure of `src/antelop` in more detail.
 

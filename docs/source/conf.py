@@ -44,3 +44,9 @@ html_theme_options = {
     'version_selector': True,
     'language_selector': True,
 }
+
+html_static_path = ['_static']
+
+def setup(app):
+    app.add_css_file('custom.css')  # Add your custom CSS
+

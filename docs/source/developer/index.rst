@@ -5,6 +5,7 @@ Developer Guidelines
    :maxdepth: 2
    :titlesonly:
 
+   mission
    contributing
    repo
    security

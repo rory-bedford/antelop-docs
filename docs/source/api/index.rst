@@ -6,4 +6,7 @@ API
    :titlesonly:
 
    analysis
+   helper
+   schemas
+   behaviour-json
 

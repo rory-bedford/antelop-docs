@@ -5,7 +5,10 @@ Analysis
 Firing_rate
 -----------
 
+This module contains the standard library firing rate analysis.
+
 .. class:: exponential_smoothing
+   :noindex:
 
    Smooth the spike train with a exponential kernel.
    
@@ -47,6 +50,7 @@ Firing_rate
 
 
 .. class:: firing_rate
+   :noindex:
 
    Smooth the spike train with a kernel.
    
@@ -97,6 +101,7 @@ Firing_rate
 
 
 .. class:: gaussian_smoothing
+   :noindex:
 
    Smooth the spike train with a Gaussian kernel.
    
@@ -140,6 +145,7 @@ Firing_rate
 
 
 .. class:: plot_firing_rate
+   :noindex:
 
    Smooth the spike train with a Gaussian kernel and plot.
    
@@ -221,6 +227,7 @@ Firing_rate
 
 
 .. class:: rectangular_smoothing
+   :noindex:
 
    Smooth the spike train with a rectangular kernel.
    
@@ -260,6 +267,7 @@ Firing_rate
 
 
 .. class:: spike_count_rate
+   :noindex:
 
    Calculate the spike count rate of a neuron.
    
@@ -286,6 +294,7 @@ Hello_world
 -----------
 
 .. class:: count_experiments
+   :noindex:
 
    This is a slightly more complex example showing how we can aggregate over another table and rename variables within the function.
    
@@ -306,6 +315,7 @@ Hello_world
 
 
 .. class:: example_figure
+   :noindex:
 
    Example of a function that returns a matplotlib figure.
 
@@ -327,6 +337,7 @@ Hello_world
 
 
 .. class:: first_experiment_name
+   :noindex:
 
    This example shows how we can use a restriction to filter the data within the function.
    
@@ -362,6 +373,7 @@ Hello_world
 
 
 .. class:: greeting
+   :noindex:
 
    This is Antelop's hello world function.
 
@@ -383,6 +395,7 @@ Hello_world
 
 
 .. class:: greeting_with_count
+   :noindex:
 
    This example shows how we can build on top of other functions and use multiple attributes, both within the same table and from different tables.
    
@@ -412,6 +425,7 @@ Hello_world
 
 
 .. class:: sta
+   :noindex:
 
    The spike-triggered average for an analog event.
    
@@ -458,7 +472,10 @@ Hello_world
 Isi
 ---
 
+This module contains the standard library isi ratio analysis functions.
+
 .. class:: auto_correlogram
+   :noindex:
 
    Plot the interspike interval histogram of a spike train.
    
@@ -513,6 +530,7 @@ Isi
 
 
 .. class:: isi_plot
+   :noindex:
 
    Plot the interspike interval histogram of a spike train.
    
@@ -553,7 +571,10 @@ Isi
 Sta
 ---
 
+This module contains the standard library spike-triggered average analysis functions.
+
 .. class:: analog_sta
+   :noindex:
 
    The spike-triggered average for an analog event.
 
@@ -593,6 +614,7 @@ Sta
 
 
 .. class:: digital_sta
+   :noindex:
 
    The spike-triggered average for a digital event.
 
@@ -648,6 +670,7 @@ Sta
 
 
 .. class:: interval_sta
+   :noindex:
 
    The spike-triggered average for a digital event.
 
@@ -704,6 +727,7 @@ Sta
 
 
 .. class:: plot_analog_sta
+   :noindex:
 
    Plot the spike-triggered average for an analog event.
 
@@ -735,6 +759,7 @@ Sta
 
 
 .. class:: plot_digital_sta
+   :noindex:
 
    Plot the spike-triggered average for an analog event.
 
@@ -766,6 +791,7 @@ Sta
 
 
 .. class:: plot_interval_sta
+   :noindex:
 
    Plot the spike-triggered average for an interval event.
 
