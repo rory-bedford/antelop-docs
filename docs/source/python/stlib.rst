@@ -1,4 +1,6 @@
-Analysis standard library
+.. _stdlib:
+
+Analysis Standard Library
 =========================
 
 

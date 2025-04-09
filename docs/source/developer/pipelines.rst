@@ -1,4 +1,4 @@
-Nextflow pipelines
+Nextflow Pipelines
 ==================
 
 Pipeline details

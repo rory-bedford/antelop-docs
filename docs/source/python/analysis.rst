@@ -1,6 +1,6 @@
 .. _analysis:
 
-Writing analysis functions
+Writing Analysis Functions
 ==========================
 
 Antelop provides a comprehensive standard library of analysis functions, discussed in :ref:`stdlib`. However, you will of course want to write your own analysis functions. We therefore provide a structured way of doing this, and recommend that you write your own functions within this framework.

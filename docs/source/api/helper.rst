@@ -1,4 +1,4 @@
-Helper functions
+Helper Functions
 ================
 
 The following helper functions can be imported directly from antelop at the top level.

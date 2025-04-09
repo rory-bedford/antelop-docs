@@ -1,6 +1,6 @@
 .. _script:
 
-Using antelop in a script
+Using Antelop in a Script
 ==========================
 
 We also provide a means of connection to your database via a script. This can be very helpful if you want to automatically parse a large amount of pre-existing data and insert it into your database, without having to go through the gui.

@@ -1,6 +1,6 @@
 .. _installation:
 
-Access/installation
+Access/Installation
 -------------------
 
 How you access the GUI depends on your infrastructure and how your database administrator setup Antelop. The recommended approach is to install Antelop locally via pip.
@@ -35,6 +35,8 @@ To install all optional dependencies, run::
     pip install antelop[full]
 
 Note the the lightweight version with no additional dependencies just allows you to use antelop's :ref:`python`.
+
+.. _configuration:
 
 Configuration
 """""""""""""

@@ -1,4 +1,4 @@
-Behaviour json
+Behaviour Json
 ==============
 
 Here we detail the json-schema for the custom json based file format needed to import data into Antelop from a NWB file.

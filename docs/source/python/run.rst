@@ -1,4 +1,6 @@
-Reproducability framework
+.. _reproducibility:
+
+Reproducibility Framework
 =========================
 
 Antelop provides a custom framework for running analysis functions on the database. These functions can include any outputs you would want to save for eventual conclusion in a paper, such as plots, tables, or other data. This framework provides a few features that can help your workflow significantly: namely, tight integration with the GUI, automatic saving of your results, and integration with your lab's GitHub so you can share scripts easily.

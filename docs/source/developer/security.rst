@@ -1,4 +1,4 @@
-Security and configuration
+Security and Configuration
 ==========================
 
 Antelop has a number of interacting components, so it is therefore worth briefly discussing some of the security and configuration considerations that we have taken into account when developing the software.

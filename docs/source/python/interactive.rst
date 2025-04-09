@@ -1,6 +1,6 @@
 .. _interactive:
 
-Interactive use
+Interactive Use
 ===============
 
 .. _basic_usage:
@@ -93,7 +93,7 @@ We list show here the tables available in the database within their schema struc
 Analysis functions
 ------------------
 
-Analysis functions are laid out as described in the :ref:`basic-usage` section. They can be run automatically on the database. For example::
+Analysis functions are laid out as described in the :ref:`basic_usage` section. They can be run automatically on the database. For example::
 
    stdlib.hello_world.greeting()
 

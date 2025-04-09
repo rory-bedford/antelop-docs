@@ -1,4 +1,4 @@
-Repository structure
+Repository Structure
 ====================
 
 Antelop involves a few distinct components that undergo separate development, need separate installations on the various host machines, but are all interconnected when Antelop is deployed. The bulk of the project consists of the python package and graphical user interface, which are installed together as a single pip package. Therefore, the repository as a whole is structured as a python package, with a `pyproject.toml` in the root directory describing the project, and the bulk of the source code under `src/antelop`. However, there are a few other components that are distinct from the python package, and therefore require their own directory in the root of the repository.
@@ -43,7 +43,7 @@ Note `load_connection` as a directory only exists to rename this directory on im
 
 Gui directory
 ^^^^^^^^^^^^^
-This directory holds all the different streamlit pages that are shown in the app. The structure of this directory follows the layout of the app, as detailed in :ref:`gui`. In particular, subdirectories correspond to pages grouped together in the app.
+This directory holds all the different streamlit pages that are shown in the app. The structure of this directory follows the layout of the app, as detailed in the documentation. In particular, subdirectories correspond to pages grouped together in the app.
 
 Streamlit overview
 """"""""""""""""""

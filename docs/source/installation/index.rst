@@ -5,5 +5,7 @@ Administration and Installation
    :maxdepth: 1
    :titlesonly:
 
-   setup
+   cluster
+   database
+   admin
 
