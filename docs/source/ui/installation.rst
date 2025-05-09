@@ -18,6 +18,14 @@ Antelop requires python3.9. We **strongly** recommend using a virtual environmen
 
 With antelop installed, you can now run the GUI by typing `antelop` in your terminal, in the activated environment. Just like a Jupyter notebook, this will run a local server and will open the application in your browser.
 
+Mac Notes
+"""""""""
+
+We find the above instructions tend to work as is on Windows and Linux, but on MacOS, you may need to install the following dependencies before installing Antelop::
+
+    conda install -c conda-forge pytables
+    conda install -c conda-forge tensorflow=2.10
+
 Optional dependencies
 """""""""""""""""""""
 Additional dependencies can be installed to enable extra features in antelop, but these are not required for basic functionality. We provide them as additional dependencies, since these dependencies can be difficult ot install on certain systems.
