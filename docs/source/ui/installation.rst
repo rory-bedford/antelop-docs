@@ -46,7 +46,7 @@ On first use, you'll need to run `antelop-config` to configure your app, or alte
 In order, the steps are:
 
 - MySQL host: The host address of your lab's MySQL database.
-- S3 host: The host address of your lab's S3 store.
+- S3 host: The host address of your lab's S3 store. If you want to store files on disk instead of S3, just set this to 'local', and data will be stored under your antelop data directory.
 - Local storage:
 
   - You can add many local storage locations which will be searchable within Antelop.

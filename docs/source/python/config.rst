@@ -21,7 +21,7 @@ The configuration is also identical as for the web app. However, the only config
 In order, the steps are:
 
 - MySQL host: The host address of your lab's MySQL database.
-- S3 host: The host address of your lab's S3 store.
+- S3 host: The host address of your lab's S3 store. If you want to store files on disk instead of S3, just set this to 'local', and data will be stored under your antelop data directory.
 - Analysis scripts:
   - Custom analysis scripts are written and kept in folders on your local machine.
   - You must specify the absolute paths to these folders here.

@@ -160,7 +160,7 @@ In the near future, we plan to incorporate the following additional features:
    :caption: Administration
    :maxdepth: 3
    
-   installation/index.rst
+   installation/overview.rst
    developer/index.rst
    api/index.rst
 

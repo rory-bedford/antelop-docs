@@ -12,3 +12,12 @@
     letter-spacing: 2px;  /* Slight letter spacing for better readability */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Light outer shadow for the container */
 }
+.rubric {
+    font-size: 1.5em; /* Adjust the size to match your theme's h2 size */
+    font-weight: bold; /* Most h2 headers are bold */
+    margin-top: 18px; /* Adjust margins to fit your theme's layout */
+    margin-bottom: 10px;
+    padding: 4px 0; /* Optional: depends on your theme */
+    color: #333; /* Adjust the color to match your h2 headers */
+}
+
