@@ -7,7 +7,7 @@ copyright = "2023, Rory Bedford"
 author = "Rory Bedford"
 
 release = "0.1"
-version = "0.1.3"
+version = "0.1.8"
 
 # -- General configuration
 
