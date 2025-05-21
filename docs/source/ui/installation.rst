@@ -10,9 +10,9 @@ Local installation
 
 Antelop can be installed locally on your machine via pip. This is the recommended approach for most users.
 
-Antelop requires python3.9. We **strongly** recommend using a virtual environment for your installation. Many users will use conda to manage virtual environments. To setup your environment and run antelop::
+Antelop requires python 3.10. We **strongly** recommend using a virtual environment for your installation. Many users will use conda to manage virtual environments. To setup your environment and run antelop::
 
-    conda create -n antelop python=3.9
+    conda create -n antelop python=3.10
     conda activate antelop
     pip install antelop[gui]
 
